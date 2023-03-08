@@ -16,6 +16,7 @@ const dbConnect = async ()=> {
         }else {
             console.log("no se pudo hacer la conexion");
         }
+        console.log(resp)
     })
     
 }

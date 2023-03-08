@@ -11,4 +11,5 @@ const port= process.env.PORT || 3000;
 app.listen(port, () =>{
     console.log('tu app esta conectada al puerto', port);
 })
-dbConnect();// ejecutamos la funcion  para crear la conexion
+// ejecutamos la funcion  para crear la conexion
+dbConnect();
