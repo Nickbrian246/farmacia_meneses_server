@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 // creacion de un esquema (una tabla en sql)
-const traksSchema = new mongoose.Schema(
+const tracksSchema = new mongoose.Schema(
 
     {
         //asignamos campos y sus tipos (filas y columnas en sql)
@@ -53,4 +53,4 @@ const traksSchema = new mongoose.Schema(
 // exportamos  un modelo donde 
 //primer parametro es el nombre de la coleccion (tabla)
 // segundo parametro el squema 
-module.exports= mongoose.model("traks",traksSchema);
+module.exports= mongoose.model("tracks",tracksSchema);
