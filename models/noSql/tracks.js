@@ -11,7 +11,7 @@ const tracksSchema = new mongoose.Schema(
             type:String,
         },
         cover:{
-            type:String,
+            type: String,
             validate:{ // validacion si no cumple x retorne un error
                 validator: (req) => {
                     return true
@@ -40,7 +40,7 @@ const tracksSchema = new mongoose.Schema(
             },
         },
         mediaId:{
-            type:mongoose.Types.ObjectId // sera un string que debe conformar un patron de id 
+            type: mongoose.Types.ObjectId,// sera un string que debe conformar un patron de id 
         },
 
     },

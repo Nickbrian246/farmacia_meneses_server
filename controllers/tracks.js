@@ -22,7 +22,13 @@
 
     };
     const createItem = async (req,res) => {
-        const {body} = req
+        // los controladores deben de retornar algo
+        const {body} = req;
+        console.log(body)
+        // de esta manera creamos un nuevo modelo
+        // el equivalente a una tabla en sql 
+        const data = await tracksModels.create(body)
+        res.send({data})
     };
 
 

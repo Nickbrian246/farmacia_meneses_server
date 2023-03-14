@@ -6,6 +6,9 @@ const app = express();
 
 
 app.use(cors());
+// de esta manera le indico que este prepadado para recibir 
+//informacion con un post
+app.use(express.json())
 
 const port= process.env.PORT || 3000;
 //aqui invocamos a las rutas
