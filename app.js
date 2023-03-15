@@ -9,6 +9,10 @@ app.use(cors());
 // de esta manera le indico que este prepadado para recibir 
 //informacion con un post
 app.use(express.json())
+// conf de datos publicos 
+// usando el metodo static le digo que todos los recursos 
+// staticos(publicos) los obtenga de la carpeta storage
+app.use(express.static("storage"));
 
 const port= process.env.PORT || 3000;
 //aqui invocamos a las rutas

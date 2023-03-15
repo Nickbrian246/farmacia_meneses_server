@@ -10,7 +10,7 @@ const UserStorage = new mongoose.Schema(
         fileName:{
             type:String
         },
-       
+    
 
     },
     { // creamos configuraciones como que en cada insert o update 
