@@ -27,4 +27,24 @@ const validationCreateItem =[
     }
 ];
 
-module.exports= {validationCreateItem}
+const validationGetItem =[
+    
+    check("id").exists().notEmpty().isMongoId(),
+    (req,res,next) => {
+        //validacion 
+        return validateResults(req,res,next)
+    }
+];
+const validationUpdateItem =[
+    
+    check("id").exists().notEmpty().isMongoId(),
+    (req,res,next) => {
+        //validacion 
+        return validateResults(req,res,next)
+    }
+];
+module.exports= {
+    validationCreateItem,
+    validationGetItem,
+    validationUpdateItem
+}

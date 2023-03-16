@@ -17,14 +17,46 @@ const { matchedData } = require("express-validator");
         }
         
     };
-    const getItem = (req,res) => {
+    const getItem = async (req,res) => {
+        try {
+            req = matchedData(req);
+            const {id} = req;
+            console.log(id,'soy id desde getitem')
+            const data = await  tracksModels.findById(id)
+            res.send({data});
+
+        } catch (error) {
+            handleHttpError(res, "error en get item")
+        }
 
     };
-    const updateItem = (req,res) => {
+    const updateItem = async(req,res) => {
+        try {
+            // al hacerlo de esta forma tendriamos dos objts uno con el id
+            // y otro con la informacion que vamos a actualizar
+            const {id,...body} = matchedData(req);
 
+            
+                 // findOneAndUpdate
+                 //primer argumento es el query sentencia de busqueda
+            const data = await tracksModels.findOneAndUpdate(id,body)
+            res.send({data})
+        } catch (error) {
+            handleHttpError(res,"error en update")
+        }
     };
-    const deletetem = (req,res) => {
+    const deleteItem = async(req,res) => {
+        try {
+            req = matchedData(req);
+            const {id} = req;
+            // dado que la base de dats de mongo crea en automatico una _id lo buscamos asi 
+            const data = await  tracksModels.deleteOne({_id:id})
+            res.send({data});
 
+        } catch (error) {
+            console.log(error)
+            handleHttpError(res, "error en delete item")
+        }
     };
     const createItem = async (req,res) => {
     try {
@@ -44,6 +76,6 @@ const { matchedData } = require("express-validator");
         getItems,
         getItem,
         updateItem,
-        deletetem,
+        deleteItem,
         createItem,
     }
