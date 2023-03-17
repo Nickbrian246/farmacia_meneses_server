@@ -1,7 +1,8 @@
     
     const {handleHttpError} = require("../utils/handleError");
     const {tracksModels} = require("../models");
-const { matchedData } = require("express-validator");
+    const { matchedData } = require("express-validator");
+
     // estas funciones recibiran lo que nos envia express
     // argumentos request y response
     
@@ -50,8 +51,8 @@ const { matchedData } = require("express-validator");
             req = matchedData(req);
             const {id} = req;
             // dado que la base de dats de mongo crea en automatico una _id lo buscamos asi 
-            const data = await  tracksModels.deleteOne({_id:id})
-            res.send({data});
+            const data = await  tracksModels.delete({_id:id})
+            res.send({data});       
 
         } catch (error) {
             console.log(error)

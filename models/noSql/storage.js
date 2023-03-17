@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const MongooseDelete = require("mongoose-delete");
 // creacion de un esquema (una tabla en sql)
 const UserStorage = new mongoose.Schema(
 
@@ -19,6 +20,9 @@ const UserStorage = new mongoose.Schema(
         versionKey: false
     }
 );
+UserStorage.plugin(MongooseDelete,{
+    overrideMethods:'all'
+})
 // exportamos  un modelo donde 
 //primer parametro es el nombre de la coleccion (tabla)
 // segundo parametro el squema 

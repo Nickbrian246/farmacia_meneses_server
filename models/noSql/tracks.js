@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const MongooseDelete = require("mongoose-delete");
 // creacion de un esquema (una tabla en sql)
 const tracksSchema = new mongoose.Schema(
 
@@ -50,6 +51,13 @@ const tracksSchema = new mongoose.Schema(
         versionKey: false
     }
 );
+// dado que mongoose delete es un plugin lo colocamos de esta forma
+// como arguemntos le pasamos el mongooseDelte
+// y el configutacion 
+//overrideMethods => sobre escribe los metodos que vienen nativos de mongoose con esta opcion del softdelete
+tracksSchema.plugin(MongooseDelete,{
+    overrideMethods:'all'
+})
 // exportamos  un modelo donde 
 //primer parametro es el nombre de la coleccion (tabla)
 // segundo parametro el squema 
