@@ -1,6 +1,10 @@
 const {storageModels} =require("../models");
 const {matchedData}= require("express-validator")
+const fs = require("fs");
+// LA LOCACION DE ESTE ARCHIVO
+const MEDIA_PATH= `${__dirname}/../storage`;
 const PUBLIC_URL = process.env.PUBLIC_URL;
+
 
 const getItems = async (req,res) => {
     // de esta menera le digo que me traiga todo
@@ -44,8 +48,18 @@ const deleteItem = async(req,res) => {
     try {
         req = matchedData(req);
         const {id} = req;
-        // dado que la base de dats de mongo crea en automatico una _id lo buscamos asi 
-        const data = await  storageModels.delete({_id:id})
+        const datafile = await  storageModels.findById(id)
+        await storageModels.deleteOne(id)
+        // unlinksync es un metodo que nos ayuda a eliminar un archivo del disco
+        //para ello tenemos que pasarle la ruta absuluta
+        // disco tal etc
+        const {fileName} = datafile;
+        const filepath = `${MEDIA_PATH}/${fileName}`//output c:/miproyecto/file-22455.png 
+        const data = {
+            filepath,
+            deleted:1,  
+        }
+        fs.unlinkSync(filepath);
         res.send({data});       
 
     } catch (error) {
@@ -64,7 +78,7 @@ const {file }= req
 // de ahi se lo mandamos con create 
 //ojo lo estamos recibiendo  del body 
 const fileData = {
-    filename: file.filename,
+    fileName: file.filename,
     url:`${PUBLIC_URL}/${file.filename}`
 }
 const data= await storageModels.create(fileData);
