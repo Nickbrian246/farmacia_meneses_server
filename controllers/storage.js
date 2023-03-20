@@ -1,5 +1,6 @@
 const {storageModels} =require("../models");
-const {matchedData}= require("express-validator")
+const {matchedData}= require("express-validator");
+const {handleHttpError} = require("../utils/handleError");
 const fs = require("fs");
 // LA LOCACION DE ESTE ARCHIVO
 const MEDIA_PATH= `${__dirname}/../storage`;
@@ -69,7 +70,8 @@ const deleteItem = async(req,res) => {
 };
 
 const createItem = async (req, res) =>{
-    //obtener mas info del archivo asi como el nombre de como se guardo
+try {
+        //obtener mas info del archivo asi como el nombre de como se guardo
     // creando el  archivo en el servidor 
     // usando nuestro modelo
 const {file }= req
@@ -83,6 +85,11 @@ const fileData = {
 }
 const data= await storageModels.create(fileData);
     res.send({data});
+} catch (error) {
+    console.log(error)
+    handleHttpError(res, "error en create item de storage")
+    
+}
 }
 
 module.exports ={

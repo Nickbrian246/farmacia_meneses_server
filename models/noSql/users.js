@@ -16,7 +16,9 @@ const UserSchema = new mongoose.Schema(
             unique:true
         },
         password:{
-            type:String
+            type:String,
+            select: false,
+            // select false para que  no regrese la contrasela
         },
         role:{// asiganmos roles para permisos y asi
             type:["user","admin"],
