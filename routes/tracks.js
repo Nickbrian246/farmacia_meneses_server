@@ -12,9 +12,9 @@ const {
     validationGetItem,
     validationUpdateItem
 } = require("../validator/tracks");
-const {customHeader} = require("../middlewares/customHeader")
+const {authMiddleware} = require("../middlewares/session")
 
-router.get("/", getItems);
+router.get("/", authMiddleware,getItems);
 
 router.post("/", validationCreateItem, createItem);
 // en este caso queremos obtener uno solo por detalle es decir por id

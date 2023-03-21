@@ -11,8 +11,9 @@
         // de esta menera le digo que me traiga todo
         // esto devuelve una promesa
         try {
+            const user = req.user;
             const data = await  tracksModels.find({})
-            res.send({data});
+            res.send({data, user});
         } catch (error) {
             handleHttpError(res,"error en getitem")
         }
@@ -22,7 +23,6 @@
         try {
             req = matchedData(req);
             const {id} = req;
-            console.log(id,'soy id desde getitem')
             const data = await  tracksModels.findById(id)
             res.send({data});
 
