@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const {authMiddleware} = require("../middlewares/session");
+const {checkRol} = require("../middlewares/role");
 const { 
     getItems,
     getItem,
@@ -12,20 +14,38 @@ const {
     validationGetItem,
     validationUpdateItem
 } = require("../validator/tracks");
-const {authMiddleware} = require("../middlewares/session")
 
-router.get("/", authMiddleware,getItems);
 
-router.post("/", validationCreateItem, createItem);
+
+router.get("/",
+    authMiddleware,
+    getItems
+    );
+// check role necesita que auth existe
+// aqui le decimos que solo el admin puede hacer un metodo post
+router.post("/",
+    authMiddleware,
+    checkRol(["admin"]),
+    validationCreateItem,
+    createItem
+    );
 // en este caso queremos obtener uno solo por detalle es decir por id
 // en caso de que queramos meter mas parametros podemos meterlos de lasig manera
 // "/:id/:var2/:var3" etc
-router.get("/:id", validationGetItem,getItem);
+router.get("/:id",
+    validationGetItem,
+    getItem);
 // hacemos uso de dos middleware debido a que el primero es para 
 // revisar que venga correctamente el id del producto que buscamos actualizar 
 //y el segundo es para verificar que nos venga la data nueva
-router.put("/:id",validationUpdateItem,validationCreateItem,updateItem)
-router.delete("/:id",validationGetItem,deleteItem)
+router.put("/:id",
+    validationUpdateItem,
+    validationCreateItem,
+    updateItem
+    )
+router.delete("/:id",
+    validationGetItem,
+    deleteItem)
 
 
 module.exports = router;
